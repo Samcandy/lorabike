@@ -78,7 +78,7 @@ def on_message(mq, userdata, msg):
 #        red.push()    
     #elif len(decode) == 50 :
 #if you want to demo (taifa1 --> taifa)
-    data = data_cut.taifa(code,topic,rssi,lsnr,freq)
+    data = data_cut.taifa1(code,topic,rssi,lsnr,freq)
     print "Taifa Data :",type(data)
     print "Taifa Data : ",repr(data)
     device="Taifa"
