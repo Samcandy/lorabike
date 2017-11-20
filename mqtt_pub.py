@@ -26,9 +26,9 @@ count = 0
 def taifa_v(count):
     typ = "01"
     mac="20160003"
-    i,j,start1,start2=0,0,0.149865,0.684069
+    i,j,start1,start2=0,0,0.149787,0.683765
     sos="0000"
-    status="0007"
+    status="0000"
     check_sum="0021"
     x=str(format(int("3d",16)+random.randint(-5,15),'04X'))
     y=str(format(int("56",16)+random.randint(-15,30),'04X'))
@@ -38,27 +38,27 @@ def taifa_v(count):
     #lng="00000000"
     #lat="00000000"
     if count >=0 and count<11:
-        start1=0.149865
-        start2=0.684069     
-        i = (0.149531-0.149865)/10
-        j = (0.685121-0.684069)/10
+        start1=0.149787
+        start2=0.683765     
+        i = (0.150302-0.149787)/10
+        j = (0.684008-0.683765)/10
     elif count < 26 and count >10:
-        i=(0.150498-0.149531)/15
-        j=(0.685495-0.685121)/15
-        start1=0.149531
-        start2=0.685121
+        i=(0.150520-0.150302)/15
+        j=(0.683475-0.684008)/15
+        start1=0.150302
+        start2=0.684008
         count -=10
     elif count <36 and count>25:
-        i=(0.150720-0.150498)/10
-        j=(0.684448-0.685495)/10
-        start1=0.150498
-        start2=0.685495
+        i=(0.149987-0.150520)/10
+        j=(0.683217-0.683475)/10
+        start1=0.150570
+        start2=0.683367
         count -=25
     elif count <51 and count>35:
-        i=(0.149865-0.150720)/15
-        j=(0.684069-0.684448)/15
-        start1=0.150720
-        start2=0.684448
+        i=(0.149810-0.150017)/15
+        j=(0.683705-0.683163)/15
+        start1=0.150017
+        start2=0.683163
         count -=35
     else :
         i=0
@@ -184,7 +184,7 @@ while 1:
     topic = "lora/rxpk"
     client.publish(topic, "%s " % ta_encoded_json)
     time.sleep(2)
-    client.publish(topic, "%s " % yo_encoded_json)
+    #client.publish(topic, "%s " % yo_encoded_json)
     
     count +=1    
     time.sleep(2)

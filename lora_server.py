@@ -63,20 +63,25 @@ def on_message(mq, userdata, msg):
     #cry=crypto.decodePHYpayload(decoded.encode("hex"),Key)
     
 #convert ASCII code 
-  #  decode = decoded.encode("hex")  
-  #  print "Decode data : ",decode
+    decode = decoded.encode("hex")  
+    print "Decode data : ",decode
 
 #No ASCII code convert  
-    if len(decoded) >= 128:
-        data = data_cut.yowa(decoded,topic,rssi,lsnr,freq)
-        print "Yowa Data :",type(data)
-        print "Yowa Data : ",repr(data)
-        device='Yowa'
-    else :
-        data = data_cut.taifa(code,topic,rssi,lsnr,freq)
-        print "Taifa Data :",type(data)
-        print "Taifa Data : ",repr(data)
-        device="Taifa"
+#    if len(decode) >= 128:
+#if you want to demo (decode --> decoded and goto data_cut)
+#        data = data_cut.yowa(decode,topic,rssi,lsnr,freq)
+#        print "Yowa Data :",type(data)
+#        print "Yowa Data : ",repr(data)
+#        device='Yowa'
+#        json_string=json.dumps(data)
+#        red = redis_mq.pool(json_string)
+#        red.push()    
+    #elif len(decode) == 50 :
+#if you want to demo (taifa1 --> taifa)
+    data = data_cut.taifa(code,topic,rssi,lsnr,freq)
+    print "Taifa Data :",type(data)
+    print "Taifa Data : ",repr(data)
+    device="Taifa"
     json_string=json.dumps(data)
     red = redis_mq.pool(json_string)
     red.push()    

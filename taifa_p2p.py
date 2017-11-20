@@ -11,7 +11,7 @@ mqtt_looping = False
 TOPIC_ROOT = "lora/rxpk"
 Key = '2b7e151628aed2a6abf7158809cf4f3c'
 # redis
-import redis_push
+import redis_mq
 
 #mongodb
 from pymongo import MongoClient
@@ -144,7 +144,7 @@ def mqtt_client_thread():
     client.on_message = on_message
 
     try:
-        client.connect("10.28.120.249",1883)
+        client.connect("10.21.20.120",1883)
     except:
         print "MQTT Broker is not online. Connect later."
 
