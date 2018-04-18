@@ -103,7 +103,7 @@ def mqtt_client_thread():
 
     try:
         #client.connect("10.28.120.249",1883)
-        client.connect("10.21.20.120",1883)
+        client.connect("10.21.20.121",1883)
     except:
         print "MQTT Broker is not online. Connect later."
 

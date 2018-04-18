@@ -1,0 +1,4 @@
+#! /bin/bash
+# mongoDB install 
+sudo apt-get install python-pymongo
+# 

@@ -8,7 +8,7 @@ class pool:
         print 
         print "Will redis push",type(self.data) 
     def push(self):
-        pool = redis.ConnectionPool(host='211.23.17.100', port=6379, db=0)
+        pool = redis.ConnectionPool(host='211.20.7.119', port=6379, db=0)
         r = redis.StrictRedis(connection_pool=pool)
         r.publish('lorainfo',self.data)
         print "redis push data: ",self.data
@@ -17,7 +17,7 @@ class pool:
 
 def sub():    
     while 1:
-        r = redis.Redis(host='211.23.17.100')
+        r = redis.Redis(host='211.20.7.119')
         pubsub = r.pubsub()
         pubsub.subscribe('loragateway')
         for item in pubsub.listen():
