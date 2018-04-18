@@ -1,4 +1,8 @@
-#! /bin/bash
-# mongoDB install 
-sudo apt-get install python-pymongo
-# 
+###install environment dependency package
+## mongoDB install:
+# sudo apt-get install python-pymongo
+## MQTT install:
+# cd paho.mqtt.python && sudo python setup.py install && cd ..
+## Redis install:
+# pip install redis-2.10.6-py2.py3-none-any.whl
+
