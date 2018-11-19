@@ -78,15 +78,24 @@ def on_message(mq, userdata, msg):
 #        red.push()    
     #elif len(decode) == 50 :
 #if you want to demo (taifa1 --> taifa)
-    data = data_cut.taifa1(code,topic,rssi,lsnr,freq)
-    print "Taifa Data :",type(data)
-    print "Taifa Data : ",repr(data)
-    device="Taifa"
-    json_string=json.dumps(data)
-    red = redis_mq.pool(json_string)
-    red.push()    
-    #mongo_insert(device,data)
-    
+    if len(code) > 50:
+      data = data_cut.taifa(code,topic,rssi,lsnr,freq)
+      print "Taifa Data :",type(data)
+      print "Taifa Data : ",repr(data)
+      device="Taifa"
+      json_string=json.dumps(data)
+      red = redis_mq.pool(json_string)
+      red.push()
+      #mongo_insert(device,data)
+    else:
+      data = data_cut.taifa1(code,topic,rssi,lsnr,freq)
+      print "Taifa Data :",type(data)
+      print "Taifa Data : ",repr(data)
+      device="Taifa"
+      json_string=json.dumps(data)
+      red = redis_mq.pool(json_string)
+      red.push()
+      #mongo_insert(device,data)
 
 def mqtt_client_thread():
     global client, mqtt_looping
@@ -103,7 +112,7 @@ def mqtt_client_thread():
 
     try:
         #client.connect("10.28.120.249",1883)
-        client.connect("10.21.20.121",1883)
+        client.connect("10.20.0.120",1883)
     except:
         print "MQTT Broker is not online. Connect later."
 
@@ -134,7 +143,7 @@ if __name__ == '__main__':
     signal.signal(signal.SIGQUIT, stop_all)
     signal.signal(signal.SIGINT,  stop_all)  # Ctrl-C
 
-    thread.start_new_thread(redis_mq.sub,())  # thread to publish Gateway
+    #thread.start_new_thread(redis_mq.sub,())  # thread to publish Gateway
     
     mqtt_client_thread()
 
