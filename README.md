@@ -10,5 +10,9 @@
 `$ pip install -r requirements.txt`
 ### redis 安裝
 `$ pip install lib/redis-2.10.6-py2.py3-none-any.whl`
-### 解密模組
+### 解密模組安裝
 `$ npm install lib/lora-packet`
+### 服務啟動
+`$ python server.py`
+### 前端頁面
+![image](https://github.com/Samcandy/lorabike/blob/v2.0/img/webui.png)
