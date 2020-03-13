@@ -7,6 +7,7 @@ from lib import redis_mq
 MQTT_PORT = 1883
 MQTT_SERVER = '192.168.1.24'
 MQTT_TOPIC = 'lora/rxpk'
+# See manual spec to change
 lora_appskey = '0e5daa99a3f64375b7a00208598dc897'
 lora_netskey = '7041f447fce24eadaa02d6aa82cfae1d'
 
