@@ -5,6 +5,7 @@
 ## 環境準備
 <p> python Version 3.7 </p>
 <p> nodejs Version 12.16.1 </p>
+
 ### 相依套件安裝
 `$ pip install -r requirements.txt`
 ### redis 安裝
