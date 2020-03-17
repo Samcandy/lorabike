@@ -74,15 +74,15 @@ def on_message(client, userdata, msg):
     # Reorganization Latitude, Longitude
     print('Latitude:', t_lat)
     print('Longitude:', t_lon)
-    latitude_fixed = bin(int(t_lat[:2], 16))[2:][0]
-    latitude_north = bin(int(t_lat[:2], 16))[2:][1]
+    latitude_fixed = bin(int(t_lat[:2], 16))[2:].zfill(8)[0]
+    latitude_north = bin(int(t_lat[:2], 16))[2:].zfill(8)[1]
     latitude = int(hex(int(bin(int(t_lat[:2], 16))[4:].zfill(8), 2)) + t_lat[2:], 16)
     latitude_degree = int(latitude / 10**7) + (latitude % 10**7) / 10**5 / 60
-    print(latitude_degree)
-    longitude_east = bin(int(t_lon[:2], 16))[2:][0]
+    print('Latitude degree:', latitude_degree)
+    longitude_east = bin(int(t_lon[:2], 16))[2:].zfill(8)[0]
     longitude = int(hex(int(bin(int(t_lon[:2], 16))[2:][1:].zfill(8), 2))+t_lon[2:], 16)
     longitude_degree = int(longitude / 10**7) + (longitude % 10**7) / 10**5 / 60
-    print(longitude_degree)
+    print('Longitude degree:', longitude_degree)
 
     date = plaintext[24:30]
     t_date = int(bin(int(date[:2], 16))[2:][:-2].zfill(8), 2)
@@ -94,7 +94,10 @@ def on_message(client, userdata, msg):
 
     battery = int(plaintext[-2:], 16) *10 + 3000
     print('Real Voltage:', battery)
-
+    sos = 0
+    print(type(battery))
+    if battery == 3010:
+        sos = 1
     front_data = [{
         "node_id" : "070707080808",
         "battery" : battery,
@@ -105,7 +108,7 @@ def on_message(client, userdata, msg):
                     "Y" : "None",
                     "Z" : "None",
                     },
-        "SoS" : 0,
+        "SoS" : sos,
         "status" : 0,
         "check_sum" : mic,
         "source" : MQTT_TOPIC,
