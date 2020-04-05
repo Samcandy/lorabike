@@ -6,6 +6,7 @@ from lib import redis_mq
 
 MQTT_PORT = 1883
 MQTT_SERVER = '192.168.1.24'
+# MQTT_SERVER = '10.20.0.15'
 MQTT_TOPIC = 'lora/rxpk'
 # See manual spec to change
 lora_appskey = '0e5daa99a3f64375b7a00208598dc897'
@@ -17,7 +18,9 @@ def on_connect(client, userdata, flags, rc):
 
 
 def on_message(client, userdata, msg):
+    print("---------------------------------------------------------")
     payload = json.loads(msg.payload)
+    print('Time:', payload['time'])
     rssi = payload['rssi']
     lsnr = payload['lsnr']
     freq = payload['freq']
@@ -98,7 +101,7 @@ def on_message(client, userdata, msg):
     print(type(battery))
     if battery == 3010:
         sos = 1
-    front_data = [{
+    front_data = {
         "node_id" : "070707080808",
         "battery" : battery,
         "lng" : longitude_degree,
@@ -117,19 +120,19 @@ def on_message(client, userdata, msg):
         "rssi": rssi,
         "lsnr": lsnr,
         "freq": freq
-    }]
-    print('------------------')
+    }
     print('Front end data:', front_data)
-    json_string = json.dumps(front_data)
-    print(json_string)
-    red = redis_mq.pool(json_string)
-    red.push()
+    if front_data:
+        print(front_data)
+        with open('data.log', 'w') as f:
+            json.dump(front_data, f)
 
 
 def client_thread():
     global mqtt_looping
     client_id = ""  # If broker asks client ID.
     client = mqtt.Client(client_id=client_id)
+    json_string = str()
 
     # If broker asks user/password.
     user = ""
@@ -146,8 +149,19 @@ def client_thread():
 
     mqtt_looping = True
     print("Looping...")
+    cnt = 0
     while mqtt_looping:
         client.loop()
+        if cnt > 5:
+            print('************************************')
+            with open('data.log', 'r') as f:
+                json_string = json.load(f)
+            print(json_string)
+            json_string = json.dumps([json_string])
+            red = redis_mq.pool(json_string)
+            red.push()
+            cnt = 0
+        cnt = cnt + 1
     client.disconnect()
 
 

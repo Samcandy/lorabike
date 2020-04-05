@@ -1,0 +1,1 @@
+{"node_id": "070707080808", "battery": 3830, "lng": 0.0, "lat": 0.0, "axis": {"X": "None", "Y": "None", "Z": "None"}, "SoS": 0, "status": 0, "check_sum": "c16065d8", "source": "lora/rxpk", "type": "None", "gateway_id": "d8:b9:0e:00:12:21", "rssi": -36, "lsnr": 9.2, "freq": 923.0}
